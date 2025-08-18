@@ -194,7 +194,7 @@ export const SignUpView = () => {
                   </Button>
 
                   <Button
-                    disabled={pending}
+                    disabled={pending} 
                     variant="outline"
                     type="button"
                     className="w-full"
