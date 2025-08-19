@@ -18,9 +18,9 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { FaGithub, FaGoogle} from "react-icons/fa"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -28,9 +28,9 @@ const formSchema = z.object({
 });
 
 export const SignInView = () => {
-    const router = useRouter();
-    const [error, setError] = useState<string | null>(null);
-    const [pending, setPending] = useState(false);
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,23 +44,45 @@ export const SignInView = () => {
     setError(null);
     setPending(true);
 
-        authClient.signIn.email(
-        {
-            email: data.email,
-            password: data.password,
+    authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setPending(false);
+          router.push("/")
         },
-        {
-            onSuccess: () => {
-                setPending(false);
-                router.push("/")
-            },
-            onError: ({ error }) => {
-                setError(error.message)
-                setPending(false);
-            }
-        }
-    )
-  }
+        onError: ({ error }) => {
+          setError(error.message);
+          setPending(false);
+        },
+      }
+    );
+  };
+
+  const onSocial = (provider: "github" | "google") => {
+    setError(null);
+    setPending(true);
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setPending(false);
+        },
+        onError: ({ error }) => {
+          setError(error.message);
+          setPending(false);
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -135,19 +157,36 @@ export const SignInView = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                    <Button disabled={pending} variant="outline" type="button" className="w-full">
-                        Google
-                    </Button>
+                  <Button
+                    disabled={pending}
+                    onClick={() => onSocial("github")}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGoogle/>
+                  </Button>
 
-                    <Button disabled={pending} variant="outline" type="button" className="w-full">
-                        Github
-                    </Button>
+                  <Button
+                    disabled={pending}
+                    onClick={() => onSocial("github")}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGithub/>
+                  </Button>
                 </div>
 
                 <div className="text-center text-sm">
-                    Don&apos;t have an account? <Link href="/sign-up" className="underline underline-offset-4 text-blue-500 font-bold">Sign up</Link>
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    href="/sign-up"
+                    className="underline underline-offset-4 text-blue-500 font-bold"
+                  >
+                    Sign up
+                  </Link>
                 </div>
-
               </div>
             </form>
           </Form>
@@ -159,7 +198,10 @@ export const SignInView = () => {
         </CardContent>
       </Card>
 
-      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></div>
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>
+      </div>
     </div>
   );
 };

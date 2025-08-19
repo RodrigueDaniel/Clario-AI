@@ -1,13 +1,20 @@
-type HomeProps = {
-  name: string
-}
+import { auth } from "@/lib/auth";
+import { HomeView } from "@/modules/home/ui/views/home-view";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-const Home = ({ name }: HomeProps) => {
-  return (
-    <div>
-      <h1 className="text-2xl">Logged in as {name}</h1>
-    </div>
+const Page = async () =>{
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if(!session){
+    redirect("/sign-in")
+  }
+
+  return(
+    <HomeView/>
   )
 }
 
-export default Home
+export default Page;
