@@ -16,7 +16,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
           <GeneratedAvatarProps
             variant="botttsNetural"
             seed={row.original.name}
-            className="size-8"
+            className="size-6"
           />
           <span className="font-semibold capitalize">{row.original.name}</span>
         </div>
@@ -32,11 +32,10 @@ export const columns: ColumnDef<AgentGetOne>[] = [
   {
     accessorKey: "meetingCount",
     header: "Meetings",
-    cell: () => (
+    cell: ({ row }) => (
       <Badge variant="outline" className="flex items-center gap-x-2 [&>svg]:size-4">
         <VideoIcon className="text-blue-700"/>
-        {/* {row.original.meetingCount} {row.original.meetingCount === 1 ? "meeting" : "meetings"} */}
-        5 meetings
+        {row.original.meetingCount} {row.original.meetingCount === 1 ? "meeting" : "meetings"}
       </Badge>
     )
   }
