@@ -75,7 +75,7 @@ export const AgentForm = ({
   return(
     <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-            <GeneratedAvatarProps seed={form.watch("name")} variant="botttsNetural" className="border size-16"/>
+            <GeneratedAvatarProps seed={form.watch("name")} variant="botttsNeutral" className="border size-16"/>
 
             <FormField
                 name="name"
