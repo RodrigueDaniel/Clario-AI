@@ -133,3 +133,20 @@
     cursor: pointer;
   }
 }
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes borderLine {
+  0%   { clip-path: inset(0 100% 100% 0 round 0.5rem); }
+  25%  { clip-path: inset(0 0 100% 0 round 0.5rem); }
+  50%  { clip-path: inset(0 0 0 100% round 0.5rem); }
+  75%  { clip-path: inset(100% 0 0 0 round 0.5rem); }
+  100% { clip-path: inset(0 100% 100% 0 round 0.5rem); }
+}
