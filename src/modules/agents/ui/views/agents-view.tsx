@@ -4,7 +4,6 @@ import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { DataTable } from "../components/data-table";
 import { columns } from "../components/columns";
 import { EmptyState } from "@/components/empty-state";
 import { useState } from "react";
@@ -14,6 +13,7 @@ import { PlusIcon } from "lucide-react";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { DataPagination } from "../components/data-pagination";
 import { useRouter } from "next/navigation";
+import { DataTable } from "@/components/data-table";
 
 export const AgentsView = () => {
   const router = useRouter();
@@ -43,13 +43,13 @@ export const AgentsView = () => {
           />
 
           {/* Show "New Agents" button when no agents exist (optional, just for convenience) */}
-          <NewAgentDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
-          <div className="flex items-center justify-between">
-            <Button onClick={() => setIsDialogOpen(true)}>
-              <PlusIcon />
-              New Agents
-            </Button>
-          </div>
+                <NewAgentDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
+                <div className="flex justify-center mt-4">
+                  <Button onClick={() => setIsDialogOpen(true)} className="flex items-center gap-2">
+                    <PlusIcon />
+                    New Agent
+                  </Button>
+                </div>
         </>
       )}
     </div>
