@@ -1,0 +1,121 @@
+"use client";
+
+import { ErrorState } from "@/components/error-state";
+import { LoadingState } from "@/components/loading-state";
+import { useTRPC } from "@/trpc/client";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+import { MeetingIdViewHeader } from "../components/meeting-id-view-header";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useConfirm } from "@/hooks/use-confirm";
+import { UpdateMeetingDialog } from "../components/update-meeting-dialog";
+import { useState } from "react";
+
+interface Props {
+  meetingId: string;
+}
+
+export const MeetingIdView = ({ meetingId }: Props) => {
+  const trpc = useTRPC();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { data } = useSuspenseQuery(
+    trpc.meetings.getOne.queryOptions({ id: meetingId })
+  );
+
+  const [updateMeetingDialogOpen, setUpdateMeetingDialogOpen] = useState(false);
+
+  const [RemoveConfirmation, confirmRemove] = useConfirm(
+    "Are you sure?",
+    `The following action will remove this meeting`
+  );
+
+  const removeMeeting = useMutation(
+    trpc.meetings.remove.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+
+        // Toast new Design
+        toast.success(
+          <span className="font-bold text-green-700">
+            Meeting deleted successfully
+          </span>,
+          {
+            classNames: {
+              toast: "relative bg-white rounded-lg overflow-hidden",
+            },
+            description: (
+              <div className="absolute inset-0 rounded-lg border-2 border-green-500 animate-[borderLine_4s_linear]" />
+            ),
+          }
+        );
+
+        router.push("/meetings");
+      },
+      onError: (error) => {
+        toast.error(
+          <span className="font-bold text-red-700">{error.message}</span>,
+          {
+            classNames: {
+              toast: "relative bg-white rounded-lg overflow-hidden",
+            },
+            description: (
+              <div className="absolute inset-0 rounded-lg border-2 border-red-500 animate-[borderLine_4s_linear]" />
+            ),
+          }
+        );
+      },
+    })
+  );
+
+    const handleRemoveMeeting = async () => {
+    const ok = await confirmRemove();
+
+    if (!ok) return;
+
+    await removeMeeting.mutateAsync({ id: meetingId });
+  };
+
+  return (
+    <>
+      <RemoveConfirmation />
+      <UpdateMeetingDialog 
+        open={updateMeetingDialogOpen}
+        onOpenChange={setUpdateMeetingDialogOpen}
+        initialValues={data}
+      />
+      <div className="flex-1 py-4 px-4 md:px-8 flex flex-col gap-y-4">
+        <MeetingIdViewHeader
+          meetingId={meetingId}
+          meetingName={data.name}
+          onEdit={() => setUpdateMeetingDialogOpen(true)}
+          onRemove={handleRemoveMeeting}
+        />
+        {JSON.stringify(data, null, 2)}
+      </div>
+    </>
+  );
+};
+
+export const MeetingIdViewLoading = () => {
+  return (
+    <LoadingState
+      title="Loading Meeting"
+      description="This may take few seconds"
+    />
+  );
+};
+
+export const MeetingIdViewError = () => {
+  return (
+    <ErrorState
+      title="Error Loading Meeting"
+      description="Please try again later"
+    />
+  );
+};
