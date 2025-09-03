@@ -1,8 +1,9 @@
+"use client"
+
 import { authClient } from "@/lib/auth-client";
 import { LoaderIcon } from "lucide-react";
 import { CallConnect } from "./call-connect";
 import { generateAvatarUri } from "@/lib/avatar";
-
 
 interface Props{
     meetingId: string;

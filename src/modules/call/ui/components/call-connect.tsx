@@ -75,17 +75,17 @@ export const CallConnect = ({
 
   if (!client || !call) {
     return (
-      <div className="flex h-screen items-center justify-center bg-radial from-sidebar-accent-to-sidebar">
+      <div className="flex h-screen items-center justify-center bg-radial from-sidebar-accent to-sidebar">
         <LoaderIcon className="size-6 animate-spin text-white" />
       </div>
     );
   }
 
-  return(
+  return (
     <StreamVideo client={client}>
-        <StreamCall call={call}>
-            <CallUI meetingName={meetingName}/>
-        </StreamCall>
+      <StreamCall call={call}>
+        <CallUI meetingName={meetingName} />
+      </StreamCall>
     </StreamVideo>
-  )
+  );
 };

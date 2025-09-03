@@ -13,6 +13,8 @@ interface Props {
 }
 
 const Page = async ({ params }: Props) => {
+  const { meetingId } = await params;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -21,8 +23,6 @@ const Page = async ({ params }: Props) => {
     redirect("/sign-in");
   }
 
-  const { meetingId } = await params;
-
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(
     trpc.meetings.getOne.queryOptions({ id: meetingId })
@@ -30,7 +30,7 @@ const Page = async ({ params }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-          <CallView meetingId={meetingId}/>
+      <CallView meetingId={meetingId}/>
     </HydrationBoundary>
   );
 };

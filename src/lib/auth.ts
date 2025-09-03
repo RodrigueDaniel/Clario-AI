@@ -23,4 +23,8 @@ export const auth = betterAuth({
       ...schema,
     },
   }),
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://likely-optimum-tahr.ngrok-free.app", // ✅ your static ngrok domain
+  ],
 });

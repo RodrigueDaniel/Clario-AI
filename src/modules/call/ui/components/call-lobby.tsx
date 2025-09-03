@@ -38,12 +38,13 @@ const DisabledVideoPreview = () => {
 };
 
 const AllowBrowserPermissions = () => {
-    return(
-        <p className="text-sm">
-            Please grant your browser a premission to access your camera and microphone.
-        </p>
-    )
-}
+  return (
+    <p className="text-sm">
+      Please grant your browser a premission to access your camera and
+      microphone.
+    </p>
+  );
+};
 
 export const CallLobby = ({ onJoin }: Props) => {
   const { useCameraState, useMicrophoneState } = useCallStateHooks();
@@ -61,9 +62,11 @@ export const CallLobby = ({ onJoin }: Props) => {
             <h6 className="text-lg font-medium">Ready to Join?</h6>
             <p className="text-sm">Set up your call before joining</p>
           </div>
-          <VideoPreview 
+          <VideoPreview
             DisabledVideoPreview={
-                hasBrowserMediaPermission ? DisabledVideoPreview : AllowBrowserPermissions
+              hasBrowserMediaPermission
+                ? DisabledVideoPreview
+                : AllowBrowserPermissions
             }
           />
           <div className="flex gap-x-2">
@@ -72,15 +75,17 @@ export const CallLobby = ({ onJoin }: Props) => {
           </div>
 
           <div className="flex gap-x-2 justify-between w-full">
-            <Button asChild variant="ghost" className="bg-red-500 hover:bg-red-700 text-white hover:text-white font-semibold">
-                <Link href="/meetings">
-                    Cancel
-                </Link>
+            <Button
+              asChild
+              variant="ghost"
+              className="bg-red-500 hover:bg-red-700 text-white hover:text-white font-semibold"
+            >
+              <Link href="/meetings">Cancel</Link>
             </Button>
 
             <Button onClick={onJoin}>
-                <LogInIcon />
-                Join Call
+              <LogInIcon />
+              Join Call
             </Button>
           </div>
         </div>
