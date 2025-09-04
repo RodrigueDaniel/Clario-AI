@@ -1,7 +1,5 @@
 import { CommandSelect } from "@/components/command-select";
 import {
-  CircleArrowUpIcon,
-  CircleCheckIcon,
   CircleXIcon,
   ClockArrowUpIcon,
   LoaderIcon,

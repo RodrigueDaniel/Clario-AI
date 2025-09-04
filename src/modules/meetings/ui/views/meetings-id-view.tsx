@@ -4,7 +4,6 @@ import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
 import { useTRPC } from "@/trpc/client";
 import {
-  QueryClient,
   useMutation,
   useQueryClient,
   useSuspenseQuery,
@@ -118,8 +117,6 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         {isUpcoming && (
           <UpcomingState
             meetingId={meetingId}
-            onCancelMeeting={() => {}}
-            isCancelling={false}
           />
         )}
       </div>

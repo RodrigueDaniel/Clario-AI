@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MeetingGetMany } from "../../types";
 import { GeneratedAvatarProps } from "@/components/generated-avatar";
 import {
-  CircleArrowUpIcon,
   CircleCheckIcon,
   CircleXIcon,
   ClockArrowUpIcon,
