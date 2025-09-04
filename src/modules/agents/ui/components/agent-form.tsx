@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface AgentFormProps {
   onSuccess?: () => void;
@@ -31,6 +32,7 @@ export const AgentForm = ({
   initialValues,
 }: AgentFormProps) => {
   const trpc = useTRPC();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const createAgent = useMutation(
@@ -38,6 +40,9 @@ export const AgentForm = ({
       onSuccess: async () => {
         await queryClient.invalidateQueries(
           trpc.agents.getMany.queryOptions({})
+        );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
         );
 
         toast.success(
@@ -67,6 +72,10 @@ export const AgentForm = ({
             ),
           }
         );
+
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );
@@ -127,7 +136,7 @@ export const AgentForm = ({
 
   const onSubmit = (values: z.infer<typeof agentsInsertSchema>) => {
     if (isEdit) {
-      updateAgent.mutate({ ...values, id: initialValues.id })
+      updateAgent.mutate({ ...values, id: initialValues.id });
     } else {
       createAgent.mutate(values);
     }

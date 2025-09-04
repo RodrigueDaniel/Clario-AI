@@ -40,6 +40,10 @@ export const AgentIdView = ({ agentId }: Props) => {
           trpc.agents.getMany.queryOptions({})
         );
 
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
+
         // Toast new Design
         toast.success(
           <span className="font-bold text-green-700">
