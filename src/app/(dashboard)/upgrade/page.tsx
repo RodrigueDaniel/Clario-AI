@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { UpgradeView, UpgradeVieW, UpgradeViewError, UpgradeViewLoading } from "@/modules/premium/ui/upgrade-view";
+import { UpgradeView, UpgradeViewError, UpgradeViewLoading } from "@/modules/premium/ui/upgrade-view";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { headers } from "next/headers";
