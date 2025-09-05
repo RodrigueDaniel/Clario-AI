@@ -1,7 +1,6 @@
 "use client";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GeneratedAvatarProps } from "@/components/generated-avatar";
 import { authClient } from "@/lib/auth-client";
