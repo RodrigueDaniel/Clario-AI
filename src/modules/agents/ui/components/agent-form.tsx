@@ -107,7 +107,7 @@ export const AgentForm = ({
         );
         onSuccess?.();
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(
           <span className="font-bold text-red-700">Failed to update agent</span>,
           {

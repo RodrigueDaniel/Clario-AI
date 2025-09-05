@@ -65,9 +65,9 @@ export const MeetingIdView = ({ meetingId }: Props) => {
 
         router.push("/meetings");
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Failed to delete meeting</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",

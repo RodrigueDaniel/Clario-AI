@@ -77,7 +77,7 @@ export const MeetingForm = ({
       },
       onError: (error) => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Failed to create meeting</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",
@@ -122,9 +122,9 @@ export const MeetingForm = ({
         );
         onSuccess?.();
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Failed to update meeting</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",

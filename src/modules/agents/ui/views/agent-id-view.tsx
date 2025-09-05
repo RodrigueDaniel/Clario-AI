@@ -61,7 +61,7 @@ export const AgentIdView = ({ agentId }: Props) => {
 
         router.push("/agents");
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(
           <span className="font-bold text-red-700">Failed to delete agent</span>,
           {
