@@ -12,7 +12,7 @@ export const HomeView = () => {
   if (isPending || !data?.user) {
     return (
       <LoadingState 
-        title="Loading"
+        title="Loading..."
         description="This may take few seconds"
       />
     );
