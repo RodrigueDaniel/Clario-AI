@@ -33,7 +33,7 @@ export const HomeView = () => {
           />
         )}
         <h1 className="text-2xl font-semibold">Welcome, {data.user.name}!</h1>
-        <span className="text-muted-foreground text-center">Glad to see you back. Manage your meetings, agents, and more from your dashboard.</span>
+        <span className="text-muted-foreground text-center">Manage your meetings, agents, and more from your dashboard.</span>
         <Badge variant="secondary" className="mt-1">{data.user.email}</Badge>
       </div>
     </div>
