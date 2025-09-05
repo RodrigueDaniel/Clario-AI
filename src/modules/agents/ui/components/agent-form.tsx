@@ -62,7 +62,7 @@ export const AgentForm = ({
       },
       onError: (error) => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Agent creation failed</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",
@@ -109,7 +109,7 @@ export const AgentForm = ({
       },
       onError: (error) => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Failed to update agent</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",

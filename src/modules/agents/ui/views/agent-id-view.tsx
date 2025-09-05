@@ -63,7 +63,7 @@ export const AgentIdView = ({ agentId }: Props) => {
       },
       onError: (error) => {
         toast.error(
-          <span className="font-bold text-red-700">{error.message}</span>,
+          <span className="font-bold text-red-700">Failed to delete agent</span>,
           {
             classNames: {
               toast: "relative bg-white rounded-lg overflow-hidden",
