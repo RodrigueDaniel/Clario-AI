@@ -38,9 +38,7 @@ It enables **real-time video calls**, **custom AI meeting agents**, **searchable
 
 ---
 
-## 📺 Walkthrough
-
-Clario-AI was built step by step, covering both backend and frontend development, real-time communication, and AI integration.  
+## 📺 Walkthrough of Project
 
 1. **Setup & Project Structure**  
    The project was initialized with Next.js and a modern stack, ensuring scalability and developer productivity.  
